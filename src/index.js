@@ -1,8 +1,8 @@
-
+"use strict"
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import { fetchImages } from './js/api';
-// import { createMarkup } from './js/gallery_markup';
+import { createMarkup } from './js/gallery_markup';
 import './styles.css';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { smoothScroll } from './js/smooth_scroll';
@@ -26,7 +26,7 @@ function submitForm(event) {
 
   gallery.innerHTML = '';
   page = 1;
-  let { searchQuery } = event.currentTarget.elements;
+  const { searchQuery } = event.currentTarget.elements;
   searchPhoto = searchQuery.value.trim().toLowerCase().split(' ').join('+');
 
   if (searchPhoto === '') {
@@ -56,15 +56,12 @@ function submitForm(event) {
         loadMoreBtn.classList.remove('is-hidden');
         window.addEventListener('scroll', loadMorePage);
       }
-      smoothScroll();
+      // smoothScroll();
     })
     .catch(onError);
 
    event.currentTarget.reset();
 }
-
-
-
 
 function onClickLoadMore() {
   page += 1;
@@ -79,6 +76,7 @@ function onClickLoadMore() {
         Notify.info(
           "We're sorry, but you've reached the end of search results."
         );
+        
         window.removeEventListener('scroll', loadMorePage);
       }
       lightbox.refresh();
