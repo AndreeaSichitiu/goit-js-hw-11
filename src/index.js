@@ -8,7 +8,7 @@ import './styles.css';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { smoothScroll } from './js/smooth_scroll';
 
-const submitForm = document.querySelector('#search-form');
+const submitForm = document.querySelector('.search-form');
 const gallery = document.querySelector('.gallery');
 const loadMoreBtn = document.querySelector('.load-more');
 
@@ -19,8 +19,6 @@ let searchPhoto = '';
 loadMoreBtn.classList.replace('load-more', 'loader');
 loadMoreBtn.innerHTML = null;
 loadMoreBtn.classList.add('is-hidden');
-
-submitForm.addEventListener('submit', onSubmitForm);
 
 function onSubmitForm(event) {
   event.preventDefault();
@@ -64,6 +62,8 @@ function onSubmitForm(event) {
    event.currentTarget.reset();
 }
 
+submitForm.addEventListener('submit', onSubmitForm);
+
 function createMarkup(searchResults) {
   const photosArray = searchResults.map(
     ({
@@ -100,7 +100,6 @@ function createMarkup(searchResults) {
   );
   gallery.insertAdjacentHTML('beforeend', photosArray.join(''));
 }
-
 
 
 function onClickLoadMore() {
