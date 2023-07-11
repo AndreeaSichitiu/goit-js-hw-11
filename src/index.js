@@ -2,7 +2,7 @@
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import { fetchImages } from './js/api';
-import { createMarkup } from './js/gallery_markup';
+// import { createMarkup } from './js/gallery_markup';
 import './styles.css';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { smoothScroll } from './js/smooth_scroll';
@@ -62,6 +62,45 @@ function submitForm(event) {
 
    event.currentTarget.reset();
 }
+
+function createMarkup(searchResults) {
+  const photosArray = searchResults.map(
+    ({
+      webformatURL,
+      largeImageURL,
+      tags,
+      likes,
+      views,
+      comments,
+      downloads,
+    }) => {
+      return `<div class="photo-card">
+        <div class="photo-wrap">
+            <a class="photo-link" href="${largeImageURL}">
+                <img class="photo" src="${webformatURL}" alt="${tags}" width="300" loading="lazy" />
+            </a>
+        </div>
+        <div class="info">
+            <p class="info-item">
+            <b>Likes: ${likes}</b>
+            </p>
+            <p class="info-item">
+            <b>Views: ${views}</b>
+            </p>
+            <p class="info-item">
+            <b>Comments: ${comments}</b>
+            </p>
+            <p class="info-item">
+            <b>Downloads: ${downloads}</b>
+            </p>
+        </div>
+        </div>`;
+    }
+  );
+  gallery.insertAdjacentHTML('beforeend', photosArray.join(''));
+}
+
+
 
 function onClickLoadMore() {
   page += 1;
