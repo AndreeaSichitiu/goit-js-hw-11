@@ -8,22 +8,30 @@ import './styles.css';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { smoothScroll } from './js/smooth_scroll';
 
-const submitForm = document.querySelector('.search-form');
-const gallery = document.querySelector('.gallery');
-const loadMoreBtn = document.querySelector('.load-more');
+const refs = {
+  submitForm: document.querySelector('form#search-form'),
+  gallery: document.querySelector('div.gallery'),
+  loadMoreBtn: document.querySelector('button.load-more'),
+};
+
+
+
+// const submitForm = document.querySelector('.search-form');
+// const gallery = document.querySelector('.gallery');
+// const loadMoreBtn = document.querySelector('.load-more');
 
 const perPage = 40;
 let page = 1;
 let searchPhoto = '';
 
-loadMoreBtn.classList.replace('load-more', 'loader');
-loadMoreBtn.innerHTML = null;
-loadMoreBtn.classList.add('is-hidden');
+refs.loadMoreBtn.classList.replace('load-more', 'loader');
+refs.loadMoreBtn.innerHTML = null;
+refs.loadMoreBtn.classList.add('is-hidden');
 
 function onSubmitForm(event) {
   event.preventDefault();
 
-  gallery.innerHTML = '';
+  refs.gallery.innerHTML = '';
   page = 1;
   const { searchQuery } = event.currentTarget.elements;
   searchPhoto = searchQuery.value.trim().toLowerCase().split(' ').join('+');
@@ -32,8 +40,7 @@ function onSubmitForm(event) {
     Notify.info('Enter your request, please!', {
       position: 'center-center',
     });
-    clearAll();
-    return;
+   return;
   }
 
   fetchImages(searchPhoto, page, perPage)
@@ -52,7 +59,7 @@ function onSubmitForm(event) {
         lightbox.refresh();
       }
       if (data.totalHits > perPage) {
-        loadMoreBtn.classList.remove('is-hidden');
+        refs.loadMoreBtn.classList.remove('is-hidden');
         window.addEventListener('scroll', loadMorePage);
       }
       smoothScroll();
@@ -62,7 +69,7 @@ function onSubmitForm(event) {
    event.currentTarget.reset();
 }
 
-submitForm.addEventListener('submit', onSubmitForm);
+refs.submitForm.addEventListener('submit', onSubmitForm);
 
 function createMarkup(searchResults) {
   const photosArray = searchResults.map(
@@ -98,7 +105,7 @@ function createMarkup(searchResults) {
         </div>`;
     }
   );
-  gallery.insertAdjacentHTML('beforeend', photosArray.join(''));
+  refs.gallery.insertAdjacentHTML('beforeend', photosArray.join(''));
 }
 
 
@@ -111,7 +118,7 @@ function onClickLoadMore() {
 
       createMarkup(searchResults);
       if (page === numberOfPage) {
-        loadMoreBtn.classList.add('is-hidden');
+        refs.loadMoreBtn.classList.add('is-hidden');
         Notify.info(
           "We're sorry, but you've reached the end of search results."
         );
@@ -136,11 +143,11 @@ function endOfPage() {
   );
 }
 
-function clearAll() {
-  perPage = 0;
-  gallery.innerHTML = ' ';
-  loadMoreBtn.classList.add('is-hidden');
-}
+// function clearAll() {
+//   perPage = 0;
+//   gallery.innerHTML = ' ';
+//   loadMoreBtn.classList.add('is-hidden');
+// }
 
 function onError() {
   Notify.failure(
