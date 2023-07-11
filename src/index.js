@@ -56,7 +56,7 @@ function submitForm(event) {
         loadMoreBtn.classList.remove('is-hidden');
         window.addEventListener('scroll', loadMorePage);
       }
-      // smoothScroll();
+      smoothScroll();
     })
     .catch(onError);
 
