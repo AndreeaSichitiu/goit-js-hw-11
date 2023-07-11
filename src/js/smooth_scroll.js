@@ -4,8 +4,8 @@ export function smoothScroll() {
 
     if ( cardsTotal > cardsPerPage) {
         const { height: cardHeight } = gallery
-            .firstElementChild
-            .getBoundingClientRect();
+        .firstElementChild
+        .getBoundingClientRect();
         
         window.scrollBy({
             top: cardHeight * 2,

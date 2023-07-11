@@ -1,4 +1,6 @@
 
+const gallery = document.querySelector('.gallery');
+
 export function createMarkup(searchResults) {
   const photosArray = searchResults.map(
     ({
