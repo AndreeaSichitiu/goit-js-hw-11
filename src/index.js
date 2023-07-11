@@ -8,7 +8,7 @@ import './styles.css';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { smoothScroll } from './js/smooth_scroll';
 
-const submitForm = document.querySelector('#search-form');
+let submitForm = document.querySelector('#search-form');
 const gallery = document.querySelector('.gallery');
 const loadMoreBtn = document.querySelector('.load-more');
 
