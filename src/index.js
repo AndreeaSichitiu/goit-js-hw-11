@@ -1,4 +1,5 @@
 "use strict"
+
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import { fetchImages } from './js/api';
@@ -7,7 +8,7 @@ import './styles.css';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { smoothScroll } from './js/smooth_scroll';
 
-const searchForm = document.querySelector('#search-form');
+const submitForm = document.querySelector('#search-form');
 const gallery = document.querySelector('.gallery');
 const loadMoreBtn = document.querySelector('.load-more');
 
@@ -19,9 +20,9 @@ loadMoreBtn.classList.replace('load-more', 'loader');
 loadMoreBtn.innerHTML = null;
 loadMoreBtn.classList.add('is-hidden');
 
-searchForm.addEventListener('submit', submitForm);
+submitForm.addEventListener('submit', onSubmitForm);
 
-function submitForm(event) {
+function onSubmitForm(event) {
   event.preventDefault();
 
   gallery.innerHTML = '';
