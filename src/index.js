@@ -14,10 +14,6 @@ const refs = {
   loadMoreBtn: document.querySelector('button.load-more'),
 };
 
-// const submitForm = document.querySelector('.search-form');
-// const gallery = document.querySelector('.gallery');
-// const loadMoreBtn = document.querySelector('.load-more');
-
 const perPage = 40;
 let page = 1;
 let searchPhoto = '';
