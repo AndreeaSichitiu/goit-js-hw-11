@@ -43,7 +43,7 @@ function onSubmitForm(event) {
     .then(data => {
       const searchResults = data.hits;
       if (data.totalHits === 0) {
-        clearAll();
+        // clearAll();
         Notify.failure(
           'Sorry, there are no images matching your search query. Please try again.',
           {
@@ -142,12 +142,12 @@ function endOfPage() {
   );
 }
 
-// Function for clear all
-function clearAll() {
-  perPage = 0;
-  gallery.innerHTML = ' ';
-  refs.loadMoreBtn.classList.add('is-hidden');
-}
+// // Function for clear all
+// function clearAll() {
+//   perPage = 0;
+//   gallery.innerHTML = ' ';
+//   refs.loadMoreBtn.classList.add('is-hidden');
+// }
 
 // Function for error
 function onError() {
