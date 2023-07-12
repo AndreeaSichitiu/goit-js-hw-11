@@ -1,4 +1,4 @@
-"use strict"
+'use strict';
 
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
@@ -14,8 +14,6 @@ const refs = {
   loadMoreBtn: document.querySelector('button.load-more'),
 };
 
-
-
 // const submitForm = document.querySelector('.search-form');
 // const gallery = document.querySelector('.gallery');
 // const loadMoreBtn = document.querySelector('.load-more');
@@ -28,6 +26,7 @@ refs.loadMoreBtn.classList.replace('load-more', 'loader');
 refs.loadMoreBtn.innerHTML = null;
 refs.loadMoreBtn.classList.add('is-hidden');
 
+// Submit function
 function onSubmitForm(event) {
   event.preventDefault();
 
@@ -40,13 +39,14 @@ function onSubmitForm(event) {
     Notify.info('Enter your request, please!', {
       position: 'center-center',
     });
-   return;
+    return;
   }
 
   fetchImages(searchPhoto, page, perPage)
     .then(data => {
       const searchResults = data.hits;
       if (data.totalHits === 0) {
+        clearAll();
         Notify.failure(
           'Sorry, there are no images matching your search query. Please try again.',
           {
@@ -66,11 +66,12 @@ function onSubmitForm(event) {
     })
     .catch(onError);
 
-   event.currentTarget.reset();
+  event.currentTarget.reset();
 }
 
 refs.submitForm.addEventListener('submit', onSubmitForm);
 
+// Create markup function for gallery
 function createMarkup(searchResults) {
   const photosArray = searchResults.map(
     ({
@@ -90,16 +91,16 @@ function createMarkup(searchResults) {
         </div>
         <div class="info">
             <p class="info-item">
-            <b>Likes: ${likes}</b>
+            <b><span class = "info-info">Likes:</span> ${likes}</b>
             </p>
             <p class="info-item">
-            <b>Views: ${views}</b>
+            <b><span class = "info-info">Views:</span> ${views}</b>
             </p>
             <p class="info-item">
-            <b>Comments: ${comments}</b>
+            <b><span class = "info-info">Comments:</span> ${comments}</b>
             </p>
             <p class="info-item">
-            <b>Downloads: ${downloads}</b>
+            <b><span class = "info-info">Downloads:</span> ${downloads}</b>
             </p>
         </div>
         </div>`;
@@ -108,7 +109,7 @@ function createMarkup(searchResults) {
   refs.gallery.insertAdjacentHTML('beforeend', photosArray.join(''));
 }
 
-
+// Load more function with infinite scroll
 function onClickLoadMore() {
   page += 1;
   fetchImages(searchPhoto, page, perPage)
@@ -122,7 +123,7 @@ function onClickLoadMore() {
         Notify.info(
           "We're sorry, but you've reached the end of search results."
         );
-        
+
         window.removeEventListener('scroll', loadMorePage);
       }
       lightbox.refresh();
@@ -131,6 +132,7 @@ function onClickLoadMore() {
     .catch(onError);
 }
 
+// Functions for infinite scroll
 function loadMorePage() {
   if (endOfPage()) {
     onClickLoadMore();
@@ -143,12 +145,14 @@ function endOfPage() {
   );
 }
 
-// function clearAll() {
-//   perPage = 0;
-//   gallery.innerHTML = ' ';
-//   loadMoreBtn.classList.add('is-hidden');
-// }
+// Function for clear all
+function clearAll() {
+  perPage = 0;
+  gallery.innerHTML = ' ';
+  loadMoreBtn.classList.add('is-hidden');
+}
 
+// Function for error
 function onError() {
   Notify.failure(
     'Sorry, there are no images matching your search query. Please try again.',
@@ -158,7 +162,19 @@ function onError() {
   );
 }
 
-let lightbox = new SimpleLightbox('.photo-wrap a', {
-  captionsData: 'alt',
-  captionDelay: 250,
-});
+// Lightbox
+let lightbox = new SimpleLightbox('.photo-wrap a');
+
+// Function for fixed header
+window.onscroll = function () {
+  stickyHeader();
+};
+const header = document.getElementById('myHeader');
+const sticky = header.offsetTop;
+function stickyHeader() {
+  if (window.scrollY > sticky) {
+    header.classList.add('sticky');
+  } else {
+    header.classList.remove('sticky');
+  }
+}
