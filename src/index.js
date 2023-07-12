@@ -9,9 +9,9 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { smoothScroll } from './js/smooth_scroll';
 
 const refs = {
-  submitForm: document.querySelector('#search-form'),
-  gallery: document.querySelector('.gallery'),
-  loadMoreBtn: document.querySelector('.load-more'),
+  submitForm: document.querySelector('form#search-form'),
+  gallery: document.querySelector('div.gallery'),
+  loadMoreBtn: document.querySelector('button.load-more'),
   header: document.getElementById('myHeader'),
 };
 
