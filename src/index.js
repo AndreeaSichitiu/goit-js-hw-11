@@ -12,6 +12,7 @@ const refs = {
   submitForm: document.querySelector('form#search-form'),
   gallery: document.querySelector('div.gallery'),
   loadMoreBtn: document.querySelector('button.load-more'),
+  header: document.getElementById('myHeader'),
 };
 
 const perPage = 40;
@@ -165,12 +166,12 @@ let lightbox = new SimpleLightbox('.photo-wrap a');
 window.onscroll = function () {
   stickyHeader();
 };
-const header = document.getElementById('myHeader');
-const sticky = header.offsetTop;
+
+const sticky = refs.header.offsetTop;
 function stickyHeader() {
   if (window.scrollY > sticky) {
-    header.classList.add('sticky');
+    refs.header.classList.add('sticky');
   } else {
-    header.classList.remove('sticky');
+    refs.header.classList.remove('sticky');
   }
 }
