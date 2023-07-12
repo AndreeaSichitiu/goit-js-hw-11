@@ -146,7 +146,7 @@ function endOfPage() {
 function clearAll() {
   perPage = 0;
   gallery.innerHTML = ' ';
-  loadMoreBtn.classList.add('is-hidden');
+  refs.loadMoreBtn.classList.add('is-hidden');
 }
 
 // Function for error
